@@ -5,10 +5,7 @@ const useStepStore = defineStore("step", () => {
   const step = ref(1);
 
   function nextStep() {
-    if (step.value === 4) {
-      return;
-    }
-    step.value += 1;
+    console.log("sexoo")
   }
 
   function prevStep() {

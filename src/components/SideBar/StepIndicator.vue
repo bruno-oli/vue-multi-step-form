@@ -37,13 +37,13 @@ const classStepNumberBackgroundObject = computed(() => ({
   "w-8": true,
   "h-8": true,
   "rounded-full": true,
-  "border-pastelblue": true,
+  "border-magnolia": true,
   "border-solid": true,
   "border-2": true,
   flex: true,
   "items-center": true,
   "justify-center": true,
-  "bg-pastelblue": step === props.step,
+  "bg-magnolia": step === props.step,
 }));
 
 function getStepName(step: stepType): string {
