@@ -24,13 +24,13 @@ const props = defineProps<{
   step: stepType;
 }>();
 
-const { step } = useStepStore();
+const store = useStepStore();
 
 const classStepNumberObject = computed(() => ({
   "font-ubunto": true,
   "font-bold": true,
-  "text-marineblue": step === props.step,
-  "text-pastelblue": step !== props.step,
+  "text-marineblue": store.step === props.step,
+  "text-pastelblue": store.step !== props.step,
 }));
 
 const classStepNumberBackgroundObject = computed(() => ({
@@ -43,7 +43,7 @@ const classStepNumberBackgroundObject = computed(() => ({
   flex: true,
   "items-center": true,
   "justify-center": true,
-  "bg-magnolia": step === props.step,
+  "bg-magnolia": store.step === props.step,
 }));
 
 function getStepName(step: stepType): string {

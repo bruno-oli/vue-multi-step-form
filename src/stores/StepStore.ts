@@ -5,7 +5,7 @@ const useStepStore = defineStore("step", () => {
   const step = ref(1);
 
   function nextStep() {
-    console.log("sexoo")
+    step.value = step.value + 1;
   }
 
   function prevStep() {

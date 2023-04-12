@@ -59,9 +59,9 @@ import Title from "../Title.vue";
 import Label from "../Label.vue";
 import Button from "../Button.vue";
 import ErrorMessage from "../ErrorMessage.vue";
-import useStepStore from "../../stores/StepStore";
+import useStepStore from "../../stores/StepStore"
 
-const { nextStep } = useStepStore();
+const store = useStepStore()
 
 const validationSchema = toFormValidator(
   zod.object({
@@ -88,6 +88,6 @@ const { value: email } = useField("email");
 const { value: phone } = useField("phone");
 
 const onSubmit = handleSubmit(() => {
-  nextStep();
+  store.nextStep()
 });
 </script>
