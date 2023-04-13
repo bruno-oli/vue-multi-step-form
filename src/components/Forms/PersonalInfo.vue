@@ -100,7 +100,6 @@ const { value: phone } = useField<string>("phone");
 const onSubmit = handleSubmit(() => {
   stepStore.nextStep();
   userDataStore.setUserData({
-    ...userDataStore.userData,
     name: name.value,
     email: email.value,
     phone: phone.value,
