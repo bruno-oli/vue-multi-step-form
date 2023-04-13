@@ -68,8 +68,10 @@ import Label from "../Label.vue";
 import Button from "../Button.vue";
 import ErrorMessage from "../ErrorMessage.vue";
 import useStepStore from "../../stores/StepStore";
+import useUserDataStore from "../../stores/UserDataStore";
 
-const store = useStepStore();
+const stepStore = useStepStore();
+const userDataStore = useUserDataStore();
 
 const validationSchema = toFormValidator(
   zod.object({
@@ -91,12 +93,18 @@ const { handleSubmit, errors } = useForm({
   validationSchema,
 });
 
-const { value: name } = useField("name");
-const { value: email } = useField("email");
-const { value: phone } = useField("phone");
+const { value: name } = useField<string>("name");
+const { value: email } = useField<string>("email");
+const { value: phone } = useField<string>("phone");
 
 const onSubmit = handleSubmit(() => {
-  store.nextStep();
+  stepStore.nextStep();
+  userDataStore.setUserData({
+    ...userDataStore.userData,
+    name: name.value,
+    email: email.value,
+    phone: phone.value,
+  });
 });
 </script>
 
