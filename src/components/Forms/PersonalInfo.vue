@@ -12,7 +12,9 @@
     <div class="flex flex-col gap-3 w-full">
       <div class="flex w-full items-center justify-between">
         <Label>Name</Label>
-        <ErrorMessage>{{ errors.name }}</ErrorMessage>
+        <transition name="slide-fade">
+          <ErrorMessage v-if="errors.name">{{ errors.name }}</ErrorMessage>
+        </transition>
       </div>
       <input
         name="name"
@@ -23,7 +25,9 @@
 
       <div class="flex w-full items-center justify-between">
         <Label>Email Address</Label>
-        <ErrorMessage>{{ errors.email }}</ErrorMessage>
+        <transition name="slide-fade">
+          <ErrorMessage v-if="errors.email">{{ errors.email }}</ErrorMessage>
+        </transition>
       </div>
       <input
         name="email"
@@ -34,7 +38,11 @@
 
       <div class="flex w-full items-center justify-between">
         <Label>Phone Number</Label>
-        <ErrorMessage>{{ errors.phone }}</ErrorMessage>
+        <transition name="slide-fade">
+          <ErrorMessage v-if="errors.phone" class="slide-fade">{{
+            errors.phone
+          }}</ErrorMessage>
+        </transition>
       </div>
       <input
         name="phone"
@@ -59,9 +67,9 @@ import Title from "../Title.vue";
 import Label from "../Label.vue";
 import Button from "../Button.vue";
 import ErrorMessage from "../ErrorMessage.vue";
-import useStepStore from "../../stores/StepStore"
+import useStepStore from "../../stores/StepStore";
 
-const store = useStepStore()
+const store = useStepStore();
 
 const validationSchema = toFormValidator(
   zod.object({
@@ -88,6 +96,22 @@ const { value: email } = useField("email");
 const { value: phone } = useField("phone");
 
 const onSubmit = handleSubmit(() => {
-  store.nextStep()
+  store.nextStep();
 });
 </script>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+</style>
