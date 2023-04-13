@@ -10,7 +10,7 @@
       >
     </div>
     <div class="flex flex-col gap-3 w-full">
-      <div class="flex w-full items-center justify-between">
+      <div class="flex w-full items-center justify-between h-4">
         <Label>Name</Label>
         <transition name="slide-fade">
           <ErrorMessage v-if="errors.name">{{ errors.name }}</ErrorMessage>
@@ -23,7 +23,7 @@
         placeholder="e.g. Stephen King"
       />
 
-      <div class="flex w-full items-center justify-between">
+      <div class="flex w-full items-center justify-between h-4">
         <Label>Email Address</Label>
         <transition name="slide-fade">
           <ErrorMessage v-if="errors.email">{{ errors.email }}</ErrorMessage>
@@ -36,7 +36,7 @@
         placeholder="e.g. sthenking@lorem.com"
       />
 
-      <div class="flex w-full items-center justify-between">
+      <div class="flex w-full items-center justify-between h-4">
         <Label>Phone Number</Label>
         <transition name="slide-fade">
           <ErrorMessage v-if="errors.phone" class="slide-fade">{{
