@@ -1,7 +1,7 @@
 <template>
   <form
     @submit.prevent="onSubmit"
-    class="flex flex-col items-start px-16 pt-6 pb-2"
+    class="flex flex-col items-start px-16 pt-6 pb-2 w-[38rem]"
   >
     <div class="mb-8">
       <Title>Personal Info</Title>
@@ -52,10 +52,7 @@
       />
     </div>
 
-    <Button
-      class="mt-16 self-end text-magnolia bg-marineblue font-medium text-sm rounded-md px-5 py-2"
-      >Next Step</Button
-    >
+    <Button>Next Step</Button>
   </form>
 </template>
 <script setup lang="ts">

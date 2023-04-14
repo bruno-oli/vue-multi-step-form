@@ -7,7 +7,9 @@ interface IUserData {
   phone: string;
   plan: "arcade" | "advanced" | "pro";
   assinature: "monthly" | "yearly";
-  addOns: Partial<"onlineService" | "largerStorage" | "customizableProfile">[];
+  addOns: Partial<
+    Array<"onlineService" | "largerStorage" | "customizableProfile">
+  >;
 }
 
 const useUserDataStore = defineStore("userData", () => {
