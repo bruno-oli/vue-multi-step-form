@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  input {
+  form input[type="text"], input[type="email"]  {
     @apply w-full focus:border-marineblue outline-none font-ubunto border-coolgray border-solid border-[2px] px-4 py-2 rounded-md text-coolgray font-medium placeholder:font-bold;
   }
 }

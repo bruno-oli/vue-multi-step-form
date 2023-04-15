@@ -47,7 +47,7 @@
       <input
         name="phone"
         v-model="phone"
-        type="string"
+        type="text"
         placeholder="e.g. +1 234 567 890"
       />
     </div>

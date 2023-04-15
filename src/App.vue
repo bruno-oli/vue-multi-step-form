@@ -8,16 +8,17 @@
       <SideBar />
       <PersonalInfo v-if="store.step === 1" />
       <SelectPlan v-else-if="store.step === 2" />
+      <AddOns v-else-if="store.step === 3" />
     </section>
   </main>
 </template>
 
 <script setup lang="ts">
-import { computed } from "@vue/reactivity";
 import PersonalInfo from "./components/Forms/PersonalInfo.vue";
 import SelectPlan from "./components/Forms/SelectPlan.vue";
 import SideBar from "./components/SideBar/SideBar.vue";
 import useStepStore from "./stores/StepStore";
+import AddOns from "./components/Forms/AddOns.vue";
 
 const store = useStepStore();
 </script>
