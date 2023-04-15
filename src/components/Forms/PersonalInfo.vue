@@ -81,7 +81,7 @@ const validationSchema = toFormValidator(
       .string()
       .refine(
         (value) => /\(?[0-9]{3}\)?[-\s]?[0-9]{3}[-\s]?[0-9]{3}/.test(value),
-        "Enter a valid number!"
+        "Enter a valid phone!"
       ),
   })
 );
