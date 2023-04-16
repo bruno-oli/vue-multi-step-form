@@ -10,52 +10,25 @@
     <div class="w-full flex justify-between gap-4">
       <div
         class="cursor-pointer w-1/3 h-48 border-solid border-2 rounded-md flex flex-col p-5 items-start justify-between"
-        :class="
-          localeActivePlan === 'arcade'
-            ? 'border-purplishblue'
-            : 'border-lightgray'
+        v-for="plan in localeActivePlan"
+        :key="plan.name"
+        :class="plan.selected ? 'border-purplishblue' : 'border-lightgray'"
+        @click="
+          () => {
+            localeActivePlan.forEach((i) => {
+              i.selected = false;
+            });
+            plan.selected = true;
+          }
         "
-        @click="localeActivePlan = 'arcade'"
       >
-        <img src="../../assets/icon-arcade.svg" alt="arcade-icon" />
+        <img :src="getPlanIconPath(plan.name)" />
         <div class="flex flex-col items-start mb-0">
-          <Subtitle>Arcade</Subtitle>
+          <Subtitle>{{ plan.name }}</Subtitle>
           <Description>{{
-            localeActiveAssinature === "monthly" ? "$9/mo" : "$90/yr"
-          }}</Description>
-        </div>
-      </div>
-      <div
-        class="cursor-pointer w-1/3 h-48 border-lightgray border-solid border-2 rounded-md flex flex-col p-5 items-start justify-between"
-        :class="
-          localeActivePlan === 'advanced'
-            ? 'border-purplishblue'
-            : 'border-lightgray'
-        "
-        @click="localeActivePlan = 'advanced'"
-      >
-        <img src="../../assets/icon-advanced.svg" alt="arcade-icon" />
-        <div class="cursor-pointer flex flex-col items-start mb-0">
-          <Subtitle>Advanced</Subtitle>
-          <Description>{{
-            localeActiveAssinature === "monthly" ? "$12/mo" : "$120/yr"
-          }}</Description>
-        </div>
-      </div>
-      <div
-        class="cursor-pointer w-1/3 h-48 border-lightgray border-solid border-2 rounded-md flex flex-col p-5 items-start justify-between"
-        :class="
-          localeActivePlan === 'pro'
-            ? 'border-purplishblue'
-            : 'border-lightgray'
-        "
-        @click="localeActivePlan = 'pro'"
-      >
-        <img src="../../assets/icon-pro.svg" alt="arcade-icon" />
-        <div class="cursor-pointer flex flex-col items-start mb-0">
-          <Subtitle>Pro</Subtitle>
-          <Description>{{
-            localeActiveAssinature === "monthly" ? "$15/mo" : "$150/yr"
+            localeActiveAssinature === "monthly"
+              ? `$${plan.prices.monthly}/mo`
+              : `$${plan.prices.yearly}/yr`
           }}</Description>
         </div>
       </div>
@@ -108,9 +81,49 @@ import useUserDataStore from "../../stores/UserDataStore";
 import { ref } from "vue";
 import useStepStore from "../../stores/StepStore";
 
+//icons
+import iconArcade from "../../assets/icon-arcade.svg";
+import iconAdvanced from "../../assets/icon-advanced.svg";
+import iconPro from "../../assets/icon-pro.svg";
+
+type plans = {
+  name: "Arcade" | "Advanced" | "Pro";
+  selected: boolean;
+  prices: {
+    monthly: number;
+    yearly: number;
+  };
+};
+
 const userStore = useUserDataStore();
 const stepStore = useStepStore();
-const localeActivePlan = ref<"arcade" | "advanced" | "pro">("arcade");
+const localeActivePlan = ref<Array<plans>>([
+  {
+    name: "Arcade",
+    selected: true,
+    prices: {
+      monthly: 9,
+      yearly: 90,
+    },
+  },
+  {
+    name: "Advanced",
+    selected: false,
+    prices: {
+      monthly: 12,
+      yearly: 120,
+    },
+  },
+  {
+    name: "Pro",
+    selected: false,
+    prices: {
+      monthly: 15,
+      yearly: 150,
+    },
+  },
+]);
+
 const localeActiveAssinature = ref<"monthly" | "yearly">("monthly");
 
 function changeLocaleAssinature() {
@@ -121,11 +134,22 @@ function changeLocaleAssinature() {
   }
 }
 
+function getPlanIconPath(plan: "Arcade" | "Advanced" | "Pro") {
+  switch (plan) {
+    case "Arcade":
+      return iconArcade;
+    case "Advanced":
+      return iconAdvanced;
+    case "Pro":
+      return iconPro;
+  }
+}
+
 function handleSubmit() {
   userStore.setUserData({
     ...userStore.userData,
     assinature: localeActiveAssinature.value,
-    plan: localeActivePlan.value,
+    plans: localeActivePlan.value,
   });
   stepStore.nextStep();
 }

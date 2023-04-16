@@ -1,3 +1,4 @@
+import { computed } from "@vue/reactivity";
 import { defineStore } from "pinia";
 import { reactive } from "vue";
 
@@ -8,11 +9,20 @@ type addOn = {
   selected: boolean;
 };
 
+type plans = {
+  name: "Arcade" | "Advanced" | "Pro";
+  selected: boolean;
+  prices: {
+    monthly: number;
+    yearly: number;
+  };
+};
+
 interface IUserData {
   name: string;
   email: string;
   phone: string;
-  plan: "arcade" | "advanced" | "pro";
+  plans: Array<plans>;
   assinature: "monthly" | "yearly";
   addOns: Array<addOn>;
 }
@@ -42,7 +52,32 @@ const useUserDataStore = defineStore("userData", () => {
         selected: false,
       },
     ],
-    plan: "arcade",
+    plans: [
+      {
+        name: "Arcade",
+        selected: true,
+        prices: {
+          monthly: 9,
+          yearly: 90,
+        },
+      },
+      {
+        name: "Advanced",
+        selected: false,
+        prices: {
+          monthly: 12,
+          yearly: 120,
+        },
+      },
+      {
+        name: "Pro",
+        selected: false,
+        prices: {
+          monthly: 15,
+          yearly: 150,
+        },
+      },
+    ],
     assinature: "monthly",
   });
 
@@ -50,7 +85,11 @@ const useUserDataStore = defineStore("userData", () => {
     Object.assign(userData, newUserData);
   }
 
-  return { userData, setUserData };
+  const getActivePlan = computed(() => {
+    return userData.plans.filter((i) => i.selected)[0];
+  });
+
+  return { userData, setUserData, getActivePlan };
 });
 
 export default useUserDataStore;

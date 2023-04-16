@@ -9,6 +9,7 @@
       <PersonalInfo v-if="store.step === 1" />
       <SelectPlan v-else-if="store.step === 2" />
       <AddOns v-else-if="store.step === 3" />
+      <Summary v-else-if="store.step === 4" />
     </section>
   </main>
 </template>
@@ -19,6 +20,7 @@ import SelectPlan from "./components/Forms/SelectPlan.vue";
 import SideBar from "./components/SideBar/SideBar.vue";
 import useStepStore from "./stores/StepStore";
 import AddOns from "./components/Forms/AddOns.vue";
+import Summary from "./components/Forms/Summary.vue";
 
 const store = useStepStore();
 </script>

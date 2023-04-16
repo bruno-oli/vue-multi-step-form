@@ -3,7 +3,7 @@ import { ref } from "vue";
 import useUserDataStore from "./UserDataStore";
 
 const useStepStore = defineStore("step", () => {
-  const step = ref(4);
+  const step = ref(1);
   const userStore = useUserDataStore();
 
   function nextStep() {
