@@ -11,7 +11,12 @@
     </div>
     <div class="flex flex-col gap-5 p-5 rounded-md bg-magnolia w-full">
       <div
-        class="flex items-center justify-between border-b-[1px] border-solid border-lightgray pb-5"
+        class="flex items-center justify-between"
+        :class="
+          addOns.length
+            ? 'border-lightgray pb-5 border-b-[1px] border-solid'
+            : ''
+        "
       >
         <div class="flex flex-col items-start">
           <span
@@ -20,7 +25,11 @@
               userStore.userData.assinature
             }})</span
           >
-          <button type="button" class="text-coolgray underline font-ubunto">
+          <button
+            type="button"
+            class="text-coolgray underline font-ubunto"
+            @click="stepStore.step = 2"
+          >
             Change
           </button>
         </div>
@@ -30,7 +39,7 @@
             : `$${userStore.getActivePlan.prices.yearly}/yr`
         }}</span>
       </div>
-      <div class="w-full flex flex-col gap-2">
+      <div class="w-full flex flex-col gap-2" v-if="addOns.length">
         <div
           v-for="addOn in addOns"
           :key="addOn.name"

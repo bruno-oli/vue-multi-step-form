@@ -1,7 +1,16 @@
 <template>
   <div class="flex gap-4 items-center">
-    <div :class="classStepNumberBackgroundObject">
-      <span :class="classStepNumberObject">{{ props.step }}</span>
+    <div
+      class="w-8 h-8 rounded-full border-magnolia border-solid border-2 flex items-center justify-center"
+      :class="store.step === props.step ? 'bg-magnolia' : ''"
+    >
+      <span
+        class="font-ubunto font-bold"
+        :class="
+          store.step === props.step ? 'text-marineblue' : 'text-pastelblue'
+        "
+        >{{ props.step }}</span
+      >
     </div>
     <div class="flex flex-col">
       <span class="text-xs font-ubunto text-pastelblue font-medium"
@@ -25,26 +34,6 @@ const props = defineProps<{
 }>();
 
 const store = useStepStore();
-
-const classStepNumberObject = computed(() => ({
-  "font-ubunto": true,
-  "font-bold": true,
-  "text-marineblue": store.step === props.step,
-  "text-pastelblue": store.step !== props.step,
-}));
-
-const classStepNumberBackgroundObject = computed(() => ({
-  "w-8": true,
-  "h-8": true,
-  "rounded-full": true,
-  "border-magnolia": true,
-  "border-solid": true,
-  "border-2": true,
-  flex: true,
-  "items-center": true,
-  "justify-center": true,
-  "bg-magnolia": store.step === props.step,
-}));
 
 function getStepName(step: stepType): string {
   switch (step) {
